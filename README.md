@@ -1,2 +1,2 @@
 # Jiuzhe-bot
-原神频道bot，python实现
+原神QQ频道机器人，python实现

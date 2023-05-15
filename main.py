@@ -1,8 +1,11 @@
 import botpy
-
+import re
 import yaml
-from botpy.message import Message,DirectMessage
+from botpy.message import Message
 from botpy.logging import get_logger
+from oj.codeforces import cf
+import asyncio
+
 _log = get_logger()
 
 with open('config.yaml', 'r') as f:
@@ -10,16 +13,27 @@ with open('config.yaml', 'r') as f:
 
 class Private(botpy.Client):
     async def on_message_create(self, message: Message):
-        # print(message)
-        _log.info('[{}] 说: {}'.format(message.author.username,message.content))
-        if(message.content!=None and message.content.__contains__("ping")):
-            msg = await message.reply(content="pong")
-            _log.info(msg=msg)
-        # print('[{}] 说: '.format(message.author.username),message.content)
-    async def on_message_delete(self, message: Message):
-        _log.info('[{}] 删除了一条消息'.format(message.author.username))
-        
+        if message.content is not None and "/ping" in message.content:
+            await message.reply(content="pong")
 
-intents = botpy.Intents(guild_messages=True) 
-client = Private(intents=intents)
+
+
+class jiangly_xcpc(botpy.Client):
+    async def on_message_create(self, message: Message):
+        _log.info('[{}]在[{}] 说: {}'.format(message.author.username,message.channel_id, message.content))
+        if message.channel_id == '9312047' or message.channel_id == '391225439':
+            if message.content is not None and re.match("下一场cf", message.content):
+                _log.info('[{}]在[{}] 查询下一场codeforces时间'.format(message.author.username,message.channel_id))
+                print(message)
+                await CF.initialize()
+                msg = CF.info
+                await message.reply(content=msg)
+
+    
+
+
+CF = cf()
+# print(CF.info)
+intents = botpy.Intents(guild_messages=True)
+client = jiangly_xcpc(intents=intents)
 client.run(appid=config['qqbot']['appid'], token=config['qqbot']['token'])

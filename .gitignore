@@ -128,4 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-config.yaml
+config.yamls
+
+notuse
+
+*.log.*
+
+oj_json/

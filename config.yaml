@@ -1,0 +1,16 @@
+qqbot:
+    appid: "102045133"
+    token: "bhwC2wYmFEQlEnmPuj9egIBz2c4Jew3b"
+
+chatGPT:
+    api: "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"
+
+Codeforces:
+    Enable_channels: 
+        - "9312047"
+        - "391225439"
+        - "494935229"
+        - "495008237"
+    Remind_channels:
+        - "391225439"
+        - "495008237" 
